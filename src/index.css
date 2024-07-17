@@ -32,7 +32,9 @@ body {
 .container {
   width: 95%;
 }
-
+.active h1 {
+  color: #e8194f;
+}
 @media (min-width: 1280px) {
   .container {
     max-width: 1220px !important;

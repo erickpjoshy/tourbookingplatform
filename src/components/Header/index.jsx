@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Select } from 'antd';
+import { NavLink } from 'react-router-dom';
 import './header.css';
 const Header = () => {
   const [openToggle, setOpenToggle] = useState(false);
@@ -28,9 +29,7 @@ const Header = () => {
           <div className="naviitems flex items-center">
             <ul className="gap-2 md:gap-6 cursor-pointer flex-row text-primary hidden sm:flex flex-wrap">
               <li>
-                {/* <NavLink to={'/'}> */}
-                Home
-                {/* </NavLink> */}
+                <NavLink to={'/'}>Home</NavLink>
               </li>
               <li>Pacakages</li>
               <li>Categories</li>
