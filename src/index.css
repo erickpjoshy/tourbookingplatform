@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+* {
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Titillium Web', sans-serif;
+}
+
+body {
+  background-color: #ffffff;
+  -webkit-font-smoothing: antialiased;
+  word-break: break-word;
+  font-family: 'Mulish', sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+.text-primary {
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.p-inputtext:enabled:focus {
+  box-shadow: none !important;
+  border-color: none;
+}
+:focus-visible {
+  outline: none !important;
+}
+.container {
+  width: 95%;
+}
+
+@media (min-width: 1280px) {
+  .container {
+    max-width: 1220px !important;
+  }
+}

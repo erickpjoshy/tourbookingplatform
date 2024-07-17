@@ -1,0 +1,41 @@
+.paginationBttns {
+  width: 80%;
+  height: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.paginationBttns a {
+  padding: 4px 8px;
+  margin: 8px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.paginationBttns a:hover {
+  color: #fff;
+  background-color: #df7591;
+}
+.paginationActive a {
+  color: #fff;
+  background-color: #e8194f;
+}
+
+.ant-modal-content {
+  padding: 0 !important;
+}
+.ant-modal-header {
+  background-color: #565656 !important;
+  padding: 24px 18px !important;
+}
+.ant-modal-title,
+.ant-modal-close-x {
+  color: #fff !important;
+}
+
+.ant-modal {
+  width: 90% !important;
+}
+.ant-modal-footer {
+  display: none;
+}

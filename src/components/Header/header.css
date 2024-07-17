@@ -1,0 +1,10 @@
+.custom-select option {
+  background-color: #fff;
+  padding: 10px;
+}
+
+.custom-select {
+  /* appearance: none; */
+  /* -webkit-appearance: none;
+  -moz-appearance: none; */
+}
