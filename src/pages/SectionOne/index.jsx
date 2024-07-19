@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { InputNumber } from 'primereact/inputnumber';
 import { Calendar } from 'primereact/calendar';
 import { Dropdown } from 'primereact/dropdown';
+import axios from '../../utilities/customAxios.js';
 import Header from '../../components/Header';
 import 'primereact/resources/themes/saga-blue/theme.css'; // Theme
 import 'primereact/resources/primereact.min.css'; // Core CSS
@@ -13,15 +14,53 @@ const SectionOne = () => {
   const [value, setValue] = useState(2);
   const [date, setDate] = useState(null);
   const [selectedOption, setSelectedOption] = useState('');
-  const options = [
-    { name: 'Bangalore', code: 'Bangalore' },
-    { name: 'Thiruvananthapuram', code: 'Thiruvananthapuram' },
-    { name: 'Cochin', code: 'Cochin' },
-    { name: 'Wayanad', code: 'Wayanad' },
-    { name: 'Thrissur', code: 'Thrissur' },
-  ];
+  const [locations, setLocations] = useState();
+  const [openHistory, setopenHistory] = useState(false);
+  const existingLocations = JSON.parse(localStorage.getItem('locations')) || [];
+  const getLocation = async () => {
+    try {
+      const response = await axios.get('tour-package-list');
+      const seen = new Set();
+      const transformedData = response.data
+        .filter(item => {
+          const isDuplicate = seen.has(item.location);
+          seen.add(item.location);
+          return !isDuplicate;
+        })
+        .map(item => ({
+          name: item.location,
+          code: item.id,
+        }));
+      setLocations(transformedData);
+    } catch (error) {
+      console.error('Error fetching locations:', error);
+    }
+  };
+  useEffect(() => {
+    getLocation();
+  }, []);
+  console.log(locations);
   const handleChange = event => {
     setSelectedOption(event.target.value);
+  };
+  const explore = () => {
+    const newLocation = {
+      placename: selectedOption.name, // Ensure `selectedOption` has a `name` property
+    };
+    if (selectedOption) {
+      // Add the new location to the array
+      existingLocations.push(newLocation);
+      // Save the updated array back to local storage
+      localStorage.setItem('locations', JSON.stringify(existingLocations));
+
+      navigate(`/explore/${selectedOption.name}`);
+    } else {
+      console.warn('No location selected');
+    }
+  };
+  const historyClick = selectedPlace => {
+    // console.log(selectedPlace);
+    navigate(`/explore/${selectedPlace}`);
   };
   return (
     <div className="relative">
@@ -106,7 +145,7 @@ const SectionOne = () => {
                       <Dropdown
                         value={selectedOption}
                         onChange={handleChange}
-                        options={options}
+                        options={locations}
                         optionLabel="name"
                         placeholder="Choose your destination"
                         className="w-full px-5 mt-2 custom-select font-normal"
@@ -122,9 +161,7 @@ const SectionOne = () => {
                   <button
                     className="text-primary px-5 py-2 h-12 rounded"
                     style={{ backgroundColor: '#E8194F' }}
-                    onClick={() => {
-                      navigate('/explore');
-                    }}
+                    onClick={explore}
                   >
                     Explore Now
                   </button>
@@ -135,10 +172,29 @@ const SectionOne = () => {
                       border: '1px solid #D5D5D5',
                     }}
                   >
-                    <i class="fa-solid fa-clock-rotate-left mr-2"></i>History
+                    <i className="fa-solid fa-clock-rotate-left mr-2"></i>
+                    History
                   </button>
                 </div>
               </div>
+            </div>
+            <div className="bg-white rounded p-5 mt-4">
+              {existingLocations?.map((place, index) => {
+                return (
+                  <div
+                    className="flex gap-4 items-center flex-wrap cursor-pointer p-2"
+                    key={index}
+                    onClick={() => {
+                      historyClick(place.placename);
+                    }}
+                  >
+                    <i className="fa-solid fa-clock-rotate-left mr-2"></i>
+                    <h1>4 people(static)</h1>
+                    <h1>8 sep 2024(static)</h1>
+                    <h1>{place.placename}</h1>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>

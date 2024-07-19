@@ -1,5 +1,5 @@
-import React from 'react';
-
+import React, { useState, useEffect } from 'react';
+import axios from '../../utilities/customAxios.js';
 const SectionThree = () => {
   const locations = [
     { name: 'Delhi', image: '/delhi.png' },
@@ -10,6 +10,14 @@ const SectionThree = () => {
     { name: 'London', image: '/london.png' },
     { name: 'Thailand', image: '/thailand.png' },
   ];
+  // const [locations, setLocations] = useState();
+  // const getLocation = async () => {
+  //   const response = await axios.get('location-list');
+  //   setLocations(response.data);
+  // };
+  // useEffect(() => {
+  //   getLocation();
+  // }, []);
   return (
     <div style={{ backgroundColor: '#F5F5F5' }}>
       <div className="container mx-auto p-2 pb-6 sm:pb-10">
