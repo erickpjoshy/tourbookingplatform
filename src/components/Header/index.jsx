@@ -29,14 +29,14 @@ const Header = () => {
         <div className="flex justify-between p-2">
           <div className="block sm:hidden">
             <i
-              class="fa-solid fa-bars text-white text-2xl"
+              className="fa-solid fa-bars text-white text-2xl"
               onClick={trigger}
             ></i>
           </div>
           {open && (
             <div className="absolute top-0 w-[250px] bg-white rounded p-4 z-10">
               <div className="flex justify-end text-xl">
-                <i class="fa-solid fa-xmark" onClick={trigger}></i>
+                <i className="fa-solid fa-xmark" onClick={trigger}></i>
               </div>
               <ul
                 className="gap-2 md:gap-4 cursor-pointer flex-col  flex text-xl"
