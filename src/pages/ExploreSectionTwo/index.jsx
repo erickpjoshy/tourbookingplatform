@@ -10,15 +10,6 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import './exploresectiontwo.css';
 const ExploreSectionTwo = ({ activities }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [packageprice, setpackageprice] = useState(0);
-  const showModal = price => {
-    setpackageprice(price);
-    setIsModalOpen(true);
-  };
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
   const initialCategories = [
     { name: 'Promo Deals', checked: false },
     { name: 'One Day Trip', checked: false },
@@ -109,7 +100,7 @@ const ExploreSectionTwo = ({ activities }) => {
                   <p
                     className="font-semibold text-sm text-center cursor-pointer"
                     onClick={() => {
-                      showModal(item.price);
+                      showModal(item.price, item.id);
                     }}
                   >
                     Enquire Now
@@ -129,11 +120,26 @@ const ExploreSectionTwo = ({ activities }) => {
 
   // ---------modal-data--------------
   const [modalData, setModalData] = useState({
+    package_id: '',
     name: '',
     phone: '',
     date: '',
     people: '',
   });
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [packageprice, setpackageprice] = useState(0);
+  const showModal = (price, id) => {
+    setModalData(prevModalData => ({
+      ...prevModalData,
+      package_id: id,
+    }));
+    setpackageprice(price);
+    setIsModalOpen(true);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
 
   const changeModalDatas = (e, key) => {
     setModalData({ ...modalData, [key]: e.target.value });
@@ -142,6 +148,7 @@ const ExploreSectionTwo = ({ activities }) => {
     const response = await axios.post('tour-booking', modalData);
     setIsModalOpen(false);
   };
+  console.log(modalData);
   // ---------end modal-data-----------
   return (
     <div className="container mx-auto">

@@ -172,6 +172,9 @@ const SectionOne = () => {
                     </button>
                     <button
                       className=" px-5 py-2 h-12 rounded color-black"
+                      onClick={() => {
+                        setopenHistory(!openHistory);
+                      }}
                       style={{
                         backgroundColor: '#fff',
                         border: '1px solid #D5D5D5',
@@ -183,7 +186,11 @@ const SectionOne = () => {
                   </div>
                 </div>
               </div>
-              <div className="bg-white rounded p-5 mt-4">
+              <div
+                className={`bg-white rounded p-5 mt-4 ${
+                  openHistory ? 'block' : 'hidden'
+                }`}
+              >
                 {existingLocations?.map((place, index) => {
                   return (
                     <div
